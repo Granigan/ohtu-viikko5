@@ -52,13 +52,17 @@ public class IntJoukko {
     }
 
     public boolean kuuluu(int luku) {
-        int index = -1;
+        return etsiIndeksi(luku) > -1;
+    }
+    
+    public int etsiIndeksi(int haettava) {
+        int indeksi = -1;
         for (int i = 0; i < alkioidenLkm; i++) {
-            if (luku == ljono[i]) {
-                index = i;
+            if (haettava == ljono[i]) {
+                indeksi = i;
             }
         }
-        return index > -1;
+        return indeksi;
     }
 
     public boolean poista(int luku) {
