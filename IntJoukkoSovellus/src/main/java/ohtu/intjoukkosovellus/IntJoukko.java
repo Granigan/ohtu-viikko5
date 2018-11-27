@@ -21,7 +21,7 @@ public class IntJoukko {
         this.kasvatuskoko = OLETUSKASVATUS;
         alkioidenLkm = 0;
         if (kapasiteetti > 0) {
-            this.ljono = new int[kapasiteetti];            
+            this.ljono = new int[kapasiteetti];
         }
         if (kasvatuskoko > 0) {
             this.kasvatuskoko = kasvatuskoko;
@@ -29,32 +29,33 @@ public class IntJoukko {
     }
 
     public boolean lisaa(int luku) {
-        int eiOle = 0;
-        if (alkioidenLkm == 0) {
-            ljono[0] = luku;
-            alkioidenLkm++;
-            return true;
-        } else {
-        }
-        if (!kuuluu(luku)) {
+        if (etsiIndeksi(luku) == -1) {
+            if (alkioidenLkm == ljono.length) {
+                kasvata();
+            }
             ljono[alkioidenLkm] = luku;
             alkioidenLkm++;
-            if (alkioidenLkm % ljono.length == 0) {
-                int[] taulukkoOld = new int[ljono.length];
-                taulukkoOld = ljono;
-                kopioiTaulukko(ljono, taulukkoOld);
-                ljono = new int[alkioidenLkm + kasvatuskoko];
-                kopioiTaulukko(taulukkoOld, ljono);
-            }
             return true;
         }
         return false;
     }
 
+    private void kasvata() {
+        int[] uusi = new int[alkioidenLkm + kasvatuskoko];
+        ljono = kopioiTaulukko(ljono, uusi);
+    }
+
+    private int[] kopioiTaulukko(int[] vanha, int[] uusi) {
+        for (int i = 0; i < vanha.length; i++) {
+            uusi[i] = vanha[i];
+        }
+        return uusi;
+    }
+
     public boolean kuuluu(int luku) {
         return etsiIndeksi(luku) > -1;
     }
-    
+
     public int etsiIndeksi(int haettava) {
         int indeksi = -1;
         for (int i = 0; i < alkioidenLkm; i++) {
@@ -88,12 +89,6 @@ public class IntJoukko {
         return false;
     }
 
-    private void kopioiTaulukko(int[] vanha, int[] uusi) {
-        for (int i = 0; i < vanha.length; i++) {
-            uusi[i] = vanha[i];
-        }
-
-    }
 
     public int mahtavuus() {
         return alkioidenLkm;
