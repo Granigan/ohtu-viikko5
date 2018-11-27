@@ -31,9 +31,9 @@ public class IntJoukko {
     }
 
     public boolean lisaa(int luku) {
-        if (etsiIndeksi(luku) == -1) {
-            if (alkioidenLkm == joukko.length) {
-                kasvata();
+        if (etsiIndeksi(this.joukko, luku) == -1) {
+            if (alkioidenLkm == this.joukko.length) {
+                this.joukko = kasvata(this.joukko);
             }
             joukko[alkioidenLkm] = luku;
             alkioidenLkm++;
@@ -42,9 +42,9 @@ public class IntJoukko {
         return false;
     }
 
-    private void kasvata() {
+    private int[] kasvata(int[] joukko) {
         int[] uusi = new int[alkioidenLkm + kasvatuskoko];
-        joukko = kopioiTaulukko(joukko, uusi);
+        return kopioiTaulukko(joukko, uusi);
     }
 
     private int[] kopioiTaulukko(int[] vanha, int[] uusi) {
@@ -55,10 +55,10 @@ public class IntJoukko {
     }
 
     public boolean kuuluu(int luku) {
-        return etsiIndeksi(luku) > -1;
+        return etsiIndeksi(this.joukko, luku) > -1;
     }
 
-    private int etsiIndeksi(int haettava) {
+    private int etsiIndeksi(int[] joukko, int haettava) {
         int indeksi = -1;
         for (int i = 0; i < alkioidenLkm; i++) {
             if (haettava == joukko[i]) {
@@ -69,7 +69,7 @@ public class IntJoukko {
     }
 
     public boolean poista(int luku) {
-        int indeksi = etsiIndeksi(luku);
+        int indeksi = etsiIndeksi(this.joukko, luku);
         if (indeksi > -1) {
             joukko[indeksi] = 0;
             tiivista(indeksi);
@@ -89,17 +89,17 @@ public class IntJoukko {
         return alkioidenLkm;
     }
 
-    private void trimmaa() {
+    private int[] trimmaa(int[] joukko) {
         int[] uusi = new int[alkioidenLkm];
         for (int i = 0; i < alkioidenLkm; i++) {
             uusi[i] = joukko[i];
         }
-        joukko = uusi;
+        return uusi;
     }
 
     @Override
     public String toString() {
-        trimmaa();
+        this.joukko = trimmaa(this.joukko);
         return Arrays.toString(joukko).replace("[", "{").replace("]", "}");
     }
 
