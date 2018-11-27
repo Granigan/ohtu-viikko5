@@ -52,17 +52,13 @@ public class IntJoukko {
     }
 
     public boolean kuuluu(int luku) {
-        int on = 0;
+        int index = -1;
         for (int i = 0; i < alkioidenLkm; i++) {
             if (luku == ljono[i]) {
-                on++;
+                index = i;
             }
         }
-        if (on > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return index > -1;
     }
 
     public boolean poista(int luku) {
