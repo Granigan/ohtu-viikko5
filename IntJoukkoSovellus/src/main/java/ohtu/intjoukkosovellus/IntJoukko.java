@@ -5,7 +5,7 @@ public class IntJoukko {
     public final static int KAPASITEETTI = 5, // aloitustalukon koko
             OLETUSKASVATUS = 5;  // luotava uusi taulukko on näin paljon isompi
     private int kasvatuskoko;     // Uusi taulukko on tämän verran vanhaa suurempi.
-    private int[] ljono;      // Joukon luvut säilytetään taulukon alkupäässä. 
+    private int[] joukko;      // Joukon luvut säilytetään taulukon alkupäässä. 
     private int alkioidenLkm;    // Tyhjässä joukossa alkioiden_määrä on nolla. 
 
     public IntJoukko() {
@@ -17,11 +17,11 @@ public class IntJoukko {
     }
 
     public IntJoukko(int kapasiteetti, int kasvatuskoko) {
-        this.ljono = new int[KAPASITEETTI];
+        this.joukko = new int[KAPASITEETTI];
         this.kasvatuskoko = OLETUSKASVATUS;
         alkioidenLkm = 0;
         if (kapasiteetti > 0) {
-            this.ljono = new int[kapasiteetti];
+            this.joukko = new int[kapasiteetti];
         }
         if (kasvatuskoko > 0) {
             this.kasvatuskoko = kasvatuskoko;
@@ -30,10 +30,10 @@ public class IntJoukko {
 
     public boolean lisaa(int luku) {
         if (etsiIndeksi(luku) == -1) {
-            if (alkioidenLkm == ljono.length) {
+            if (alkioidenLkm == joukko.length) {
                 kasvata();
             }
-            ljono[alkioidenLkm] = luku;
+            joukko[alkioidenLkm] = luku;
             alkioidenLkm++;
             return true;
         }
@@ -42,7 +42,7 @@ public class IntJoukko {
 
     private void kasvata() {
         int[] uusi = new int[alkioidenLkm + kasvatuskoko];
-        ljono = kopioiTaulukko(ljono, uusi);
+        joukko = kopioiTaulukko(joukko, uusi);
     }
 
     private int[] kopioiTaulukko(int[] vanha, int[] uusi) {
@@ -56,10 +56,10 @@ public class IntJoukko {
         return etsiIndeksi(luku) > -1;
     }
 
-    public int etsiIndeksi(int haettava) {
+    private int etsiIndeksi(int haettava) {
         int indeksi = -1;
         for (int i = 0; i < alkioidenLkm; i++) {
-            if (haettava == ljono[i]) {
+            if (haettava == joukko[i]) {
                 indeksi = i;
             }
         }
@@ -67,29 +67,22 @@ public class IntJoukko {
     }
 
     public boolean poista(int luku) {
-        int kohta = -1;
-        int apu;
-        for (int i = 0; i < alkioidenLkm; i++) {
-            if (luku == ljono[i]) {
-                kohta = i; //siis luku löytyy tuosta kohdasta :D
-                ljono[kohta] = 0;
-                break;
-            }
-        }
-        if (kohta != -1) {
-            for (int j = kohta; j < alkioidenLkm - 1; j++) {
-                apu = ljono[j];
-                ljono[j] = ljono[j + 1];
-                ljono[j + 1] = apu;
-            }
+        int indeksi = etsiIndeksi(luku);
+        if(indeksi > -1) {
+            joukko[indeksi] = 0;
+            tiivista(indeksi);
             alkioidenLkm--;
             return true;
         }
-
         return false;
     }
-
-
+    
+    private void tiivista(int indeksi) {
+        for(int i = indeksi; i < alkioidenLkm -1; i++) {
+            joukko[i] = joukko[i+1];
+        }
+    }
+    
     public int mahtavuus() {
         return alkioidenLkm;
     }
@@ -99,14 +92,14 @@ public class IntJoukko {
         if (alkioidenLkm == 0) {
             return "{}";
         } else if (alkioidenLkm == 1) {
-            return "{" + ljono[0] + "}";
+            return "{" + joukko[0] + "}";
         } else {
             String tuotos = "{";
             for (int i = 0; i < alkioidenLkm - 1; i++) {
-                tuotos += ljono[i];
+                tuotos += joukko[i];
                 tuotos += ", ";
             }
-            tuotos += ljono[alkioidenLkm - 1];
+            tuotos += joukko[alkioidenLkm - 1];
             tuotos += "}";
             return tuotos;
         }
@@ -115,7 +108,7 @@ public class IntJoukko {
     public int[] toIntArray() {
         int[] taulu = new int[alkioidenLkm];
         for (int i = 0; i < taulu.length; i++) {
-            taulu[i] = ljono[i];
+            taulu[i] = joukko[i];
         }
         return taulu;
     }
