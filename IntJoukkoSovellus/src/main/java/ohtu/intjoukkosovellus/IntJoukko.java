@@ -31,9 +31,9 @@ public class IntJoukko {
     }
 
     public boolean lisaa(int luku) {
-        if (etsiIndeksi(this.taulukko, luku) == -1) {
+        if (etsiIndeksi(luku) == -1) {
             if (alkioidenLkm == this.taulukko.length) {
-                this.taulukko = kasvata(this.taulukko);
+                kasvata();
             }
             taulukko[alkioidenLkm] = luku;
             alkioidenLkm++;
@@ -42,9 +42,9 @@ public class IntJoukko {
         return false;
     }
 
-    private int[] kasvata(int[] joukko) {
+    private void kasvata() {
         int[] uusi = new int[alkioidenLkm + kasvatuskoko];
-        return kopioiTaulukko(joukko, uusi);
+        taulukko = kopioiTaulukko(taulukko, uusi);
     }
 
     private int[] kopioiTaulukko(int[] vanha, int[] uusi) {
@@ -55,13 +55,13 @@ public class IntJoukko {
     }
 
     public boolean kuuluu(int luku) {
-        return etsiIndeksi(this.taulukko, luku) > -1;
+        return etsiIndeksi(luku) > -1;
     }
 
-    private int etsiIndeksi(int[] joukko, int haettava) {
+    private int etsiIndeksi(int haettava) {
         int indeksi = -1;
         for (int i = 0; i < alkioidenLkm; i++) {
-            if (haettava == joukko[i]) {
+            if (haettava == taulukko[i]) {
                 indeksi = i;
             }
         }
@@ -69,7 +69,7 @@ public class IntJoukko {
     }
 
     public boolean poista(int luku) {
-        int indeksi = etsiIndeksi(this.taulukko, luku);
+        int indeksi = etsiIndeksi(luku);
         if (indeksi > -1) {
             taulukko[indeksi] = 0;
             tiivista(indeksi);
