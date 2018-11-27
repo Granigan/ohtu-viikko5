@@ -89,7 +89,6 @@ public class IntJoukko {
         return alkioidenLkm;
     }
 
-
     @Override
     public String toString() {
         this.taulukko = toIntArray();
@@ -114,9 +113,9 @@ public class IntJoukko {
 
     public static IntJoukko leikkaus(IntJoukko a, IntJoukko b) {
         int[] aTaulu = a.toIntArray();
-        for(int i = 0; i < a.mahtavuus(); i++) {
+        for (int i = 0; i < a.mahtavuus(); i++) {
             int luku = aTaulu[i];
-            if(!b.kuuluu(luku)) {
+            if (!b.kuuluu(luku)) {
                 a.poista(luku);
             }
         }
@@ -124,17 +123,14 @@ public class IntJoukko {
     }
 
     public static IntJoukko erotus(IntJoukko a, IntJoukko b) {
-        IntJoukko z = new IntJoukko();
         int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            z.lisaa(aTaulu[i]);
+        for (int i = 0; i < a.mahtavuus(); i++) {
+            int luku = aTaulu[i];
+            if (b.kuuluu(luku)) {
+                a.poista(luku);
+            }
         }
-        for (int i = 0; i < bTaulu.length; i++) {
-            z.poista(i);
-        }
-
-        return z;
+        return a;
     }
 
 }
