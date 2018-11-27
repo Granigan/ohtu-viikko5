@@ -1,5 +1,7 @@
 package ohtu.intjoukkosovellus;
 
+import java.util.Arrays;
+
 public class IntJoukko {
 
     public final static int KAPASITEETTI = 5, // aloitustalukon koko
@@ -68,7 +70,7 @@ public class IntJoukko {
 
     public boolean poista(int luku) {
         int indeksi = etsiIndeksi(luku);
-        if(indeksi > -1) {
+        if (indeksi > -1) {
             joukko[indeksi] = 0;
             tiivista(indeksi);
             alkioidenLkm--;
@@ -76,33 +78,29 @@ public class IntJoukko {
         }
         return false;
     }
-    
+
     private void tiivista(int indeksi) {
-        for(int i = indeksi; i < alkioidenLkm -1; i++) {
-            joukko[i] = joukko[i+1];
+        for (int i = indeksi; i < alkioidenLkm - 1; i++) {
+            joukko[i] = joukko[i + 1];
         }
     }
-    
+
     public int mahtavuus() {
         return alkioidenLkm;
     }
 
+    private void trimmaa() {
+        int[] uusi = new int[alkioidenLkm];
+        for (int i = 0; i < alkioidenLkm; i++) {
+            uusi[i] = joukko[i];
+        }
+        joukko = uusi;
+    }
+
     @Override
     public String toString() {
-        if (alkioidenLkm == 0) {
-            return "{}";
-        } else if (alkioidenLkm == 1) {
-            return "{" + joukko[0] + "}";
-        } else {
-            String tuotos = "{";
-            for (int i = 0; i < alkioidenLkm - 1; i++) {
-                tuotos += joukko[i];
-                tuotos += ", ";
-            }
-            tuotos += joukko[alkioidenLkm - 1];
-            tuotos += "}";
-            return tuotos;
-        }
+        trimmaa();
+        return Arrays.toString(joukko).replace("[", "{").replace("]", "}");
     }
 
     public int[] toIntArray() {
