@@ -17,20 +17,15 @@ public class IntJoukko {
     }
 
     public IntJoukko(int kapasiteetti, int kasvatuskoko) {
+        this.ljono = new int[KAPASITEETTI];
+        this.kasvatuskoko = OLETUSKASVATUS;
+        alkioidenLkm = 0;
         if (kapasiteetti > 0) {
             this.ljono = new int[kapasiteetti];            
-        } else {
-            this.ljono = new int[KAPASITEETTI];
         }
-        
         if (kasvatuskoko > 0) {
             this.kasvatuskoko = kasvatuskoko;
-        } else {
-            this.kasvatuskoko = OLETUSKASVATUS;
         }
-
-        ljono = new int[kapasiteetti];
-        alkioidenLkm = 0;
     }
 
     public boolean lisaa(int luku) {
