@@ -105,16 +105,11 @@ public class IntJoukko {
     }
 
     public static IntJoukko yhdiste(IntJoukko a, IntJoukko b) {
-        IntJoukko x = new IntJoukko();
-        int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            x.lisaa(aTaulu[i]);
+        int[] liitettava = b.toIntArray();
+        for (int i = 0; i < liitettava.length; i++) {
+            a.lisaa(liitettava[i]);
         }
-        for (int i = 0; i < bTaulu.length; i++) {
-            x.lisaa(bTaulu[i]);
-        }
-        return x;
+        return a;
     }
 
     public static IntJoukko leikkaus(IntJoukko a, IntJoukko b) {
