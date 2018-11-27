@@ -12,9 +12,6 @@ public class IntJoukko {
 
     public IntJoukko() {
         ljono = new int[KAPASITEETTI];
-        for (int i = 0; i < ljono.length; i++) {
-            ljono[i] = 0;
-        }
         alkioidenLkm = 0;
         this.kasvatuskoko = OLETUSKASVATUS;
     }
@@ -24,9 +21,6 @@ public class IntJoukko {
             return;
         }
         ljono = new int[kapasiteetti];
-        for (int i = 0; i < ljono.length; i++) {
-            ljono[i] = 0;
-        }
         alkioidenLkm = 0;
         this.kasvatuskoko = OLETUSKASVATUS;
 
@@ -41,9 +35,6 @@ public class IntJoukko {
             throw new IndexOutOfBoundsException("kapasiteetti2");//heitin vaan jotain :D
         }
         ljono = new int[kapasiteetti];
-        for (int i = 0; i < ljono.length; i++) {
-            ljono[i] = 0;
-        }
         alkioidenLkm = 0;
         this.kasvatuskoko = kasvatuskoko;
 
