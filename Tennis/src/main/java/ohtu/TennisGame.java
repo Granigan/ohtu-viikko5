@@ -50,19 +50,26 @@ public class TennisGame {
     }
 
     private String endGame() {
-        String scoreString;
         int differenceInPoints = player1Points - player2Points;
-        if (differenceInPoints == 1) {
-            scoreString = "Advantage " + player1Name;
-        } else if (differenceInPoints == -1) {
-            scoreString = "Advantage " + player2Name;
-        } else if (differenceInPoints >= 2) {
-            scoreString = "Win for " + player1Name;
+        if (Math.abs(differenceInPoints) < 2) {
+            return advantage(differenceInPoints);
         } else {
-            scoreString = "Win for " + player2Name;
+            return victory(differenceInPoints);
         }
+    }
 
-        return scoreString;
+    private String advantage(int pointDifference) {
+        if (pointDifference > 0) {
+            return "Advantage " + player1Name;
+        }
+        return "Advantage " + player2Name;
+    }
+
+    private String victory(int pointDifference) {
+        if (pointDifference > 0) {
+            return "Win for " + player1Name;
+        }
+        return "Win for " + player2Name;
     }
 
     private String pointsToString(int points) {
