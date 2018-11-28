@@ -2,44 +2,42 @@ package ohtu;
 
 public class TennisGame {
 
-    private int m_score1 = 0;
-    private int m_score2 = 0;
-    private String player1Name;
-    private String player2Name;
+    private int player1Points = 0;
+    private int player2Points = 0;
+    private final String player1Name;
 
     public TennisGame(String player1Name, String player2Name) {
         this.player1Name = player1Name;
-        this.player2Name = player2Name;
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1") {
-            m_score1 += 1;
+        if (playerName.equals(this.player1Name)) {
+            player1Points += 1;
         } else {
-            m_score2 += 1;
+            player2Points += 1;
         }
     }
 
-    public String getScore() {
+    public String getScoreString() {
         String scoreString = "";
-        if (m_score1 == m_score2) {
-            scoreString = draw(m_score1);
+        if (player1Points == player2Points) {
+            scoreString = draw(player1Points);
 
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
-            scoreString = overtime(m_score1, m_score2);
+        } else if (player1Points >= 4 || player2Points >= 4) {
+            scoreString = overtime(player1Points, player2Points);
 
         } else {
-            scoreString += pointsToString(m_score1);
+            scoreString += pointsToString(player1Points);
             scoreString += "-";
-            scoreString += pointsToString(m_score2);
+            scoreString += pointsToString(player2Points);
 
         }
         return scoreString;
     }
 
-    private String draw(int ballsWonByEachPlayer) {
+    private String draw(int pointsByBothPlayers) {
         String scoreString;
-        switch (ballsWonByEachPlayer) {
+        switch (pointsByBothPlayers) {
             case 0:
                 scoreString = "Love-All";
                 break;
@@ -60,9 +58,9 @@ public class TennisGame {
         return scoreString;
     }
 
-    private String overtime(int score1, int score2) {
+    private String overtime(int points1, int points2) {
         String scoreString;
-        int minusResult = score1 - score2;
+        int minusResult = points1 - points2;
         if (minusResult == 1) {
             scoreString = "Advantage player1";
         } else if (minusResult == -1) {
