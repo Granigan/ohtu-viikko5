@@ -43,46 +43,74 @@ public class TennisGame {
         return scoreString;
     }
 
+    private String overtime(int score1, int score2) {
+        String scoreString;
+        int minusResult = score1 - score2;
+        if (minusResult == 1) {
+            scoreString = "Advantage player1";
+        } else if (minusResult == -1) {
+            scoreString = "Advantage player2";
+        } else if (minusResult >= 2) {
+            scoreString = "Win for player1";
+        } else {
+            scoreString = "Win for player2";
+        }
+
+        return scoreString;
+    }
+
+    private String pointsToString(int points) {
+        String scoreString;
+        switch (points) {
+            case 0:
+                scoreString = "Love";
+                break;
+            case 1:
+                scoreString = "Fifteen";
+                break;
+            case 2:
+                scoreString = "Thirty";
+                break;
+            default:
+                scoreString = "Forty";
+                break;
+        }
+
+        return scoreString;
+    }
+
     public String getScore() {
-        String score = "";
+        String scoreString = "";
         int tempScore = 0;
         if (m_score1 == m_score2) {
-            score = draw(m_score1);
+            scoreString = draw(m_score1);
         } else if (m_score1 >= 4 || m_score2 >= 4) {
-            int minusResult = m_score1 - m_score2;
-            if (minusResult == 1) {
-                score = "Advantage player1";
-            } else if (minusResult == -1) {
-                score = "Advantage player2";
-            } else if (minusResult >= 2) {
-                score = "Win for player1";
-            } else {
-                score = "Win for player2";
-            }
+            scoreString = overtime(m_score1, m_score2);
         } else {
+
             for (int i = 1; i < 3; i++) {
                 if (i == 1) {
                     tempScore = m_score1;
                 } else {
-                    score += "-";
+                    scoreString += "-";
                     tempScore = m_score2;
                 }
                 switch (tempScore) {
                     case 0:
-                        score += "Love";
+                        scoreString += "Love";
                         break;
                     case 1:
-                        score += "Fifteen";
+                        scoreString += "Fifteen";
                         break;
                     case 2:
-                        score += "Thirty";
+                        scoreString += "Thirty";
                         break;
                     case 3:
-                        score += "Forty";
+                        scoreString += "Forty";
                         break;
                 }
             }
         }
-        return score;
+        return scoreString;
     }
 }
