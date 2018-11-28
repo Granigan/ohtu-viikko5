@@ -7,6 +7,7 @@ public class TennisGame {
     private final String player1Name;
     private final String player2Name;
     private final int deuceLevel = 4;
+    private final int mustWinBy = 2;
 
     public TennisGame(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -21,7 +22,7 @@ public class TennisGame {
         }
     }
 
-    public String getScoreString() {
+    public String getScore() {
         if (player1Points == player2Points) {
             return draw();
 
@@ -34,24 +35,19 @@ public class TennisGame {
     }
 
     private String normalGame() {
-        String scoreString = "";
-        scoreString += pointsToString(player1Points);
-        scoreString += "-";
-        return scoreString += pointsToString(player2Points);
+        return pointsToString(player1Points) + "-" + pointsToString(player2Points);
     }
 
     private String draw() {
         if (player1Points >= deuceLevel) {
             return "Deuce";
         }
-        String scoreString = "";
-        scoreString += pointsToString(player1Points);
-        return scoreString += "-All";
+        return pointsToString(player1Points) + "-All";
     }
 
     private String endGame() {
         int differenceInPoints = player1Points - player2Points;
-        if (Math.abs(differenceInPoints) < 2) {
+        if (Math.abs(differenceInPoints) < mustWinBy) {
             return advantage(differenceInPoints);
         } else {
             return victory(differenceInPoints);
