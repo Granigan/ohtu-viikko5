@@ -20,6 +20,23 @@ public class TennisGame {
         }
     }
 
+    public String getScore() {
+        String scoreString = "";
+        if (m_score1 == m_score2) {
+            scoreString = draw(m_score1);
+
+        } else if (m_score1 >= 4 || m_score2 >= 4) {
+            scoreString = overtime(m_score1, m_score2);
+
+        } else {
+            scoreString += pointsToString(m_score1);
+            scoreString += "-";
+            scoreString += pointsToString(m_score2);
+
+        }
+        return scoreString;
+    }
+
     private String draw(int ballsWonByEachPlayer) {
         String scoreString;
         switch (ballsWonByEachPlayer) {
@@ -79,38 +96,4 @@ public class TennisGame {
         return scoreString;
     }
 
-    public String getScore() {
-        String scoreString = "";
-        int tempScore = 0;
-        if (m_score1 == m_score2) {
-            scoreString = draw(m_score1);
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
-            scoreString = overtime(m_score1, m_score2);
-        } else {
-
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) {
-                    tempScore = m_score1;
-                } else {
-                    scoreString += "-";
-                    tempScore = m_score2;
-                }
-                switch (tempScore) {
-                    case 0:
-                        scoreString += "Love";
-                        break;
-                    case 1:
-                        scoreString += "Fifteen";
-                        break;
-                    case 2:
-                        scoreString += "Thirty";
-                        break;
-                    case 3:
-                        scoreString += "Forty";
-                        break;
-                }
-            }
-        }
-        return scoreString;
-    }
 }
