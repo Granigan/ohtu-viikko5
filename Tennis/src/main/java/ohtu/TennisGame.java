@@ -19,25 +19,28 @@ public class TennisGame {
     }
 
     public String getScoreString() {
-        String scoreString = "";
         if (player1Points == player2Points) {
-            scoreString = draw(player1Points);
+            return draw();
 
         } else if (player1Points >= 4 || player2Points >= 4) {
-            scoreString = overtime(player1Points, player2Points);
+            return endGame();
 
         } else {
-            scoreString += pointsToString(player1Points);
-            scoreString += "-";
-            scoreString += pointsToString(player2Points);
-
+            return normalGame();
         }
+    }
+
+    private String normalGame() {
+        String scoreString = "";
+        scoreString += pointsToString(player1Points);
+        scoreString += "-";
+        scoreString += pointsToString(player2Points);
         return scoreString;
     }
 
-    private String draw(int pointsByBothPlayers) {
+    private String draw() {
         String scoreString;
-        switch (pointsByBothPlayers) {
+        switch (player1Points) {
             case 0:
                 scoreString = "Love-All";
                 break;
@@ -58,9 +61,9 @@ public class TennisGame {
         return scoreString;
     }
 
-    private String overtime(int points1, int points2) {
+    private String endGame() {
         String scoreString;
-        int minusResult = points1 - points2;
+        int minusResult = player1Points - player2Points;
         if (minusResult == 1) {
             scoreString = "Advantage player1";
         } else if (minusResult == -1) {
@@ -93,5 +96,4 @@ public class TennisGame {
 
         return scoreString;
     }
-
 }
