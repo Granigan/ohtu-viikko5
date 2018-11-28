@@ -34,33 +34,18 @@ public class TennisGame {
         String scoreString = "";
         scoreString += pointsToString(player1Points);
         scoreString += "-";
-        scoreString += pointsToString(player2Points);
-        return scoreString;
+        return scoreString += pointsToString(player2Points);
     }
 
     private String draw() {
-        String scoreString;
-        switch (player1Points) {
-            case 0:
-                scoreString = "Love-All";
-                break;
-            case 1:
-                scoreString = "Fifteen-All";
-                break;
-            case 2:
-                scoreString = "Thirty-All";
-                break;
-            case 3:
-                scoreString = "Forty-All";
-                break;
-            default:
-                scoreString = "Deuce";
-                break;
-
+        if(player1Points > 3) {
+            return "Deuce";
         }
-        return scoreString;
+        String scoreString = "";
+        scoreString += pointsToString(player1Points);
+        return scoreString += "-All";
     }
-
+    
     private String endGame() {
         String scoreString;
         int minusResult = player1Points - player2Points;
