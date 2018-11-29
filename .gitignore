@@ -1,5 +1,6 @@
-IntJoukkoSovellus/.gradle/
-IntJoukkoSovellus/build/
+/IntJoukkoSovellus/.gradle/
+/IntJoukkoSovellus/build/
+/IntJoukkoSovellus/.nb-gradle/
 /Tennis/.nb-gradle/
 /Tennis/build/
 /Tennis/.gradle/
